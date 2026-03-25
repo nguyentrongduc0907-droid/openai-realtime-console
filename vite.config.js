@@ -1,17 +1,19 @@
-import { join, dirname, resolve } from "path";
-import { fileURLToPath } from "url";
+import { defineConfig } from 'vite';
 import react from "@vitejs/plugin-react";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
 const path = fileURLToPath(import.meta.url);
 
-
 export default defineConfig({
-  // ... các cấu hình khác có sẵn của bạn ...
+  // Giữ nguyên cấu hình cũ của bạn
+  root: join(dirname(path), "client"),
+  plugins: [react()],
+  
+  // Thêm phần này để sửa lỗi "Host not allowed"
   server: {
     allowedHosts: [
       'openai-realtime-console-7tbt.onrender.com'
-    ],
-    // Hoặc nếu bạn muốn nhanh và dùng cho nhiều link khác sau này:
-    // allowedHosts: true, 
-  },
-};
+    ]
+  }
+});
